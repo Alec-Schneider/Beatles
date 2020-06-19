@@ -12,7 +12,8 @@ from scipy.io import wavfile
 from scipy import signal
 import matplotlib.pyplot as plt
 import numpy as np
-
+import librosa
+import librosa.display
 
 
 def download_song(link, directory=None):
@@ -155,5 +156,68 @@ def plot_spectrogram(file, outdir=None):
     plt.close()
     fig.clf()
     plt.close(fig)
-    print("Successfully created...", image_path)     
+    print("Successfully created...", image_path)
+    
+    
+def plot_melspectrogram(file, outdir=None, x_axis="time", y_axis="log"):
+    
+    
+    if not outdir:
+        # Get the directory name to save to
+        outdir = os.path.dirname(file)
+    else:
+        # If directory does not exist, create so
+        if not os.path.exists(outdir):
+            os.mkdir(outdir)
+            
+    base_file, ext = os.path.splitext(os.path.basename(file))
+    image_path = os.path.join(outdir, base_file + '.png')
+    
+    audio, sr = librosa.load(file)
+    
+    fig, ax = plt.subplots(1, 1, figsize=(1,1))
+    ax.axes.get_xaxis().set_visible(False)
+    ax.axes.get_yaxis().set_visible(False)
+    ax.set_frame_on(False)
+    mel = librosa.feature.melspectrogram(y=audio, sr=sr)
+    librosa.display.specshow(librosa.power_to_db(mel), 
+                             x_axis=x_axis, y_axis=y_axis)
+    plt.savefig(image_path, dpi=400, bbox_inches='tight',pad_inches=0)
+    plt.close()
+    fig.clf()
+    plt.close(fig)
+    print("Successfully created...", image_path)
+    
+
+def plot_stft(file, outdir=None, x_axis="time", y_axis="log"):
+    
+    
+    if not outdir:
+        # Get the directory name to save to
+        outdir = os.path.dirname(file)
+    else:
+        # If directory does not exist, create so
+        if not os.path.exists(outdir):
+            os.mkdir(outdir)
+            
+    base_file, ext = os.path.splitext(os.path.basename(file))
+    image_path = os.path.join(outdir, base_file + '.png')
+    
+    audio, sr = librosa.load(file)
+    
+    fig, ax = plt.subplots(1, 1, figsize=(1,1))
+    ax.axes.get_xaxis().set_visible(False)
+    ax.axes.get_yaxis().set_visible(False)
+    ax.set_frame_on(False)
+    stft = librosa.core.stft(y=audio)
+    librosa.display.specshow(librosa.power_to_db(stft), 
+                             x_axis=x_axis, y_axis=y_axis)
+    plt.savefig(image_path, dpi=400, bbox_inches='tight',pad_inches=0)
+    plt.close()
+    fig.clf()
+    plt.close(fig)
+    print("Successfully created...", image_path)
+    
+    
+            
     
