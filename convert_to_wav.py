@@ -23,7 +23,7 @@ def write_wav_files(walk):
                 # laction to save converted file
                 new_path = os.path.join(dirname, "wav") 
                 # pass to converter function
-                processing.convert_mp4_to_wav(file_path,
+                processing.convert_file_to_wav(file_path,
                                               new_path)
                 
 

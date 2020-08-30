@@ -32,8 +32,6 @@ def write_plots(walk):
                                               new_path)
 
 
-
-
 if __name__ == '__main__':
     base_dir = 'C:\\Users\\Alec\\MyPython\\Beatles\\'
 
