@@ -97,7 +97,7 @@ def create_cnn2D(input_shape, classes, conv_layers=4, filters=32,
     
     if optimizer.lower() == "sgd":
         optimizer = keras.optimizers.SGD(**hyper_params)
-    elif optimizer.lower() == "Adam":
+    elif optimizer.lower() == "adam":
         optimizer = keras.optimizers.Adam(**hyper_params)
         
     model.compile(optimizer=optimizer, loss=loss.lower(), metrics=["accuracy"])
